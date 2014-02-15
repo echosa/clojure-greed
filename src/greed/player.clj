@@ -36,20 +36,22 @@
      (check-player-move grid player-position :east))))
 
 (defn move-player [grid direction]
-  (let [player-position (find-player grid)
-        x (first player-position)
-        y (nth player-position 1)
-        grid-with-replaced-player (set-thing-at-grid-position
-                                   grid player-position 0)
-        new-position ((traverse-grid-in-direction
-                       grid (find-player grid) direction)
-                      :position)
-        grid-with-new-player-position (set-thing-at-grid-position
-                                       grid-with-replaced-player
-                                       new-position player-character)
-        grid-with-zeroed-path (zero-path-between
-                               grid-with-new-player-position
-                               direction
-                               player-position
-                               new-position)]
-    grid-with-zeroed-path))
+  (if (not (check-player-move grid (find-player grid) direction))
+    grid
+    (let [player-position (find-player grid)
+          x (first player-position)
+          y (nth player-position 1)
+          grid-with-replaced-player (set-thing-at-grid-position
+                                     grid player-position 0)
+          new-position ((traverse-grid-in-direction
+                         grid (find-player grid) direction)
+                        :position)
+          grid-with-new-player-position (set-thing-at-grid-position
+                                         grid-with-replaced-player
+                                         new-position player-character)
+          grid-with-zeroed-path (zero-path-between
+                                 grid-with-new-player-position
+                                 direction
+                                 player-position
+                                 new-position)]
+      grid-with-zeroed-path)))

@@ -38,3 +38,7 @@
       (is (= 0 (get-thing-at-grid-position grid-after-move '(3 1))))
       (is (= 0 (get-thing-at-grid-position grid-after-move '(4 1))))
       (is (= 0 (get-thing-at-grid-position grid-after-move '(5 1)))))))
+
+(deftest test-making-bad-move-does-not-modify-grid
+  (testing "Trying to make a bad move modified the grid."
+    (is (= test-grid (move-player test-grid :south)))))
