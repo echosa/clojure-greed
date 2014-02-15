@@ -1,15 +1,7 @@
 (ns greed.coords-test
   (:require [clojure.test :refer :all]
+            [greed.test-helper :refer :all]
             [greed.coords :refer :all]))
-
-(def test-grid '((1 2  3  4 5 6 7 8 9)
-                 (2 2 "@" 4 5 6 7 8 9)
-                 (3 2  0  4 5 6 7 8 9)
-                 (4 2  3  4 5 6 7 8 9)
-                 (5 2  3  4 5 6 7 8 9)
-                 (6 2  3  4 5 6 0 8 9)
-                 (7 2  3  4 5 6 7 8 9)
-                 (8 2  3  4 5 6 7 8 9)))
 
 (deftest test-getting-next-northwest-coord
   (testing "Could not get the next coordinate to the northwest."
