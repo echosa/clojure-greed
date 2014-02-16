@@ -8,14 +8,13 @@
 
 (defn find-player [grid]
   "Returns the (X Y) position of the player."
-  (let [row (first (filter #(> (.indexOf % player-character) -1)  grid))]
+  (let [row (first (filter #(> (.indexOf % player-character) -1) grid))]
     (list (.indexOf row player-character) (.indexOf grid row))))
 
 (defn check-player-move [grid player-position direction]
   "Returns the direction if the player can move that way, nil otherwise."
-  (let [move-amount (get-in 
-                     grid 
-                     (reverse
+  (let [move-amount 
+        (get-in grid (reverse
                       (get-next-coordinate grid player-position direction)))
         moves-made ((traverse-grid grid player-position direction) :moves-made)]
     (when (and (not= move-amount 0)
@@ -26,15 +25,16 @@
   "Returns keywords for the directions in which a player can move."
   (let [player-position (find-player grid)
         moves (list)]
-    (list
-     (check-player-move grid player-position :northwest)
-     (check-player-move grid player-position :north)
-     (check-player-move grid player-position :northeast)
-     (check-player-move grid player-position :west)
-     (check-player-move grid player-position :southwest)
-     (check-player-move grid player-position :south)
-     (check-player-move grid player-position :southeast)
-     (check-player-move grid player-position :east))))
+    (remove nil?
+            (list
+             (check-player-move grid player-position :northwest)
+             (check-player-move grid player-position :north)
+             (check-player-move grid player-position :northeast)
+             (check-player-move grid player-position :west)
+             (check-player-move grid player-position :southwest)
+             (check-player-move grid player-position :south)
+             (check-player-move grid player-position :southeast)
+             (check-player-move grid player-position :east)))))
 
 (defn move-player [grid direction]
   (if (not (check-player-move grid (find-player grid) direction))

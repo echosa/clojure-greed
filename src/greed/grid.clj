@@ -4,10 +4,8 @@
 (defn traverse-grid 
   "Traverses the gride in the given direction."
   ([grid position direction]
-     (let [thing-at-first-move (get-in
-                                grid
-                                (reverse
-                                 (get-next-coordinate grid position direction)))
+     (let [thing-at-first-move
+           (get-in grid (reverse (get-next-coordinate grid position direction)))
            max-moves (if thing-at-first-move thing-at-first-move 0)]
        (traverse-grid grid position direction max-moves 0)))
 
