@@ -18,6 +18,8 @@ b: down and left
 n: down and right
 ```
 
+You can quit at anytime by pressing `q`.
+
 ## Installation
 
 Download from http://github.com/echosa/clojure-greed
