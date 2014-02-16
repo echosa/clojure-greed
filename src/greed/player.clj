@@ -23,8 +23,7 @@
 
 (defn get-player-moves [grid]
   "Returns keywords for the directions in which a player can move."
-  (let [player-position (find-player grid)
-        moves (list)]
+  (let [player-position (find-player grid)]
     (remove nil?
             (list
              (check-player-move grid player-position :northwest)

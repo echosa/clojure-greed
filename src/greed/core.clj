@@ -15,7 +15,23 @@
                     (if (= thing 0)
                       " "
                       (print-str thing)))))
- (s/redraw scr))
+ (s/redraw scr)
+ grid)
+
+(defn player-turn [grid]
+  (print-grid grid)
+  (let [key (s/get-key-blocking scr)]
+    (condp = key
+      \q nil
+      \y (player-turn (move-player grid :northwest))
+      \k (player-turn (move-player grid :north))
+      \u (player-turn (move-player grid :northeast))
+      \l (player-turn (move-player grid :east))
+      \n (player-turn (move-player grid :southeast))
+      \j (player-turn (move-player grid :south))
+      \b (player-turn (move-player grid :southwest))
+      \h (player-turn (move-player grid :west))
+      (player-turn grid))))
 
 (defn -main
   "Run the game."
@@ -26,20 +42,5 @@
               [1 2 3 4 5]
               [1 2 3 4 5]]]
     (s/start scr)
-
-    (print-grid grid)
-    (s/get-key-blocking scr)
-    (print-grid (move-player grid :west))
-    (s/get-key-blocking scr)
-    (print-grid (move-player (move-player grid :west) :north))
-    (s/get-key-blocking scr)
-    (print-grid (move-player (move-player (move-player grid :west) :north) :north))
-    (s/get-key-blocking scr)
-    (print-grid (move-player (move-player (move-player (move-player grid :west) :north) :north) :east))
-
-
-    (s/put-string scr 10 11 "Press any key to exit!")
-    (s/redraw scr)
-    (s/get-key-blocking scr)
-
+    (player-turn grid)
     (s/stop scr)))
