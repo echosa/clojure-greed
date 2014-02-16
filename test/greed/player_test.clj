@@ -42,3 +42,4 @@
 (deftest test-making-bad-move-does-not-modify-grid
   (testing "Trying to make a bad move modified the grid."
     (is (= test-grid (move-player test-grid :south)))))
+
