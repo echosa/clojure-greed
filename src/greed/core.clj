@@ -10,7 +10,7 @@
 (defn print-grid [grid]
   "Prints the grid to the screen."
   (doseq [x (range (count (first grid))) y (range (count grid))]
-    (s/put-string scr x (inc (inc y))
+    (s/put-string scr x y
                   (let [thing (get-in grid [y x])]
                     (if (= thing 0)
                       " "
@@ -18,20 +18,27 @@
  (s/redraw scr)
  grid)
 
+(defn print-message [message grid]
+  "Prints a message below the grid."
+  (s/put-string scr 0 (inc (count grid)) message)
+  (s/redraw scr))
+
 (defn player-turn [grid]
   (print-grid grid)
-  (let [key (s/get-key-blocking scr)]
-    (condp = key
-      \q nil
-      \y (player-turn (move-player grid :northwest))
-      \k (player-turn (move-player grid :north))
-      \u (player-turn (move-player grid :northeast))
-      \l (player-turn (move-player grid :east))
-      \n (player-turn (move-player grid :southeast))
-      \j (player-turn (move-player grid :south))
-      \b (player-turn (move-player grid :southwest))
-      \h (player-turn (move-player grid :west))
-      (player-turn grid))))
+  (if (= '() (get-player-moves grid))
+    (print-message "Game over!" grid)
+    (let [key (s/get-key-blocking scr)]
+      (condp = key
+        \q nil
+        \y (player-turn (move-player grid :northwest))
+        \k (player-turn (move-player grid :north))
+        \u (player-turn (move-player grid :northeast))
+        \l (player-turn (move-player grid :east))
+        \n (player-turn (move-player grid :southeast))
+        \j (player-turn (move-player grid :south))
+        \b (player-turn (move-player grid :southwest))
+        \h (player-turn (move-player grid :west))
+        (player-turn grid)))))
 
 (defn -main
   "Run the game."
@@ -43,4 +50,5 @@
               [1 2 3 4 5]]]
     (s/start scr)
     (player-turn grid)
+    (s/get-key-blocking scr)
     (s/stop scr)))
