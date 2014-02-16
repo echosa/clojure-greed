@@ -30,6 +30,13 @@ Run the app with `lein run`. (Requires leiningen, obviously.)
 
 You can run the unit tests with `lein test`.
 
+## TODO
+
+Things I still want to add to the game:
+
+- score keeping/display
+- colors
+
 ## Thanks
 
 Thanks to #clojure on Freenode for all your help.
