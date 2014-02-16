@@ -1,36 +1,16 @@
 # greed
 
-FIXME: description
+This is a Clojure version of the game "greed". The goal of the game is to clear out
+as much of the board as possible. When you move in a direction, you move a number
+of spaces equal to the first number in that direction. You must be able to move the
+full amount. If you can't, you are not allowed to move in that direction. The game
+ends when you can no longer make any moves.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Download from http://github.com/echosa/clojure-greed
 
 ## Usage
 
-FIXME: explanation
+Run the app with `lein run`. (Requires leiningen, obviously.)
 
-    $ java -jar greed-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2014 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
