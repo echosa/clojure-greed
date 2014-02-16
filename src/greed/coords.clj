@@ -38,7 +38,7 @@
 
 (defn get-next-coordinate [grid current-position direction]
   (let [x (first current-position)
-        y (nth current-position 1)]
+        y (second current-position)]
     (condp = direction
       :northwest (get-next-coordinate-northwest grid x y)
       :north (get-next-coordinate-north grid x y)

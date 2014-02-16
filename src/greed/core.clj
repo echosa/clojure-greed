@@ -15,6 +15,8 @@
                     (if (= thing 0)
                       " "
                       (print-str thing)))))
+ (let [player-position (find-player grid)]
+   (s/move-cursor scr (first player-position) (second player-position)))
  (s/redraw scr)
  grid)
 
@@ -26,7 +28,7 @@
 (defn player-turn [grid]
   (print-grid grid)
   (if (= '() (get-player-moves grid))
-    (print-message "Game over!" grid)
+    (print-message "Game over! Press q to exit." grid)
     (let [key (s/get-key-blocking scr)]
       (condp = key
         \q nil
@@ -40,15 +42,21 @@
         \h (player-turn (move-player grid :west))
         (player-turn grid)))))
 
+(defn generate-grid [height width]
+  "Generates a random grid of size HEIGHT x WIDTH, and randomly places player."
+  (assoc-in 
+   (into []
+         (repeatedly height (fn [] 
+                              (into []
+                                    (repeatedly width (fn []
+                                                        (rand-grid-item)))))))
+   (list (rand-int height) (rand-int width))
+   player-character))
+
 (defn -main
   "Run the game."
   [& args]
-  (let [grid [[1 2 3 4 5]
-              [1 2 3 4 5]
-              [1 2 "@" 4 5]
-              [1 2 3 4 5]
-              [1 2 3 4 5]]]
-    (s/start scr)
-    (player-turn grid)
-    (s/get-key-blocking scr)
-    (s/stop scr)))
+  (s/start scr)
+  (player-turn (generate-grid 22 79))
+  (while (not= \q (s/get-key-blocking scr)))
+  (s/stop scr))

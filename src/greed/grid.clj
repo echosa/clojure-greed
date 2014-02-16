@@ -1,10 +1,12 @@
 (ns greed.grid
   (:require [greed.coords :refer :all]))
 
-;; 79 x 22
-(defn generate-grid [height width]
-  "Generates a random grid of size HEIGHT x WIDTH, and randomly places player."
-  (let [grid ()]))
+(defn rand-grid-item []
+  "Returns a random nubmer between 1 and 9."
+  (let [num (rand-int 10)]
+    (if (= 0 num)
+      (rand-grid-item)
+      num)))
 
 (defn traverse-grid 
   "Traverses the gride in the given direction."

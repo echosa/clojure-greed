@@ -40,7 +40,7 @@
     grid
     (let [player-position (find-player grid)
           x (first player-position)
-          y (nth player-position 1)
+          y (second player-position)
           grid-with-replaced-player (assoc-in grid (reverse player-position) 0)
           new-position ((traverse-grid grid (find-player grid) direction)
                         :position)
