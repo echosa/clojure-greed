@@ -13,8 +13,10 @@
 
 (defn check-player-move [grid player-position direction]
   "Returns the direction if the player can move that way, nil otherwise."
-  (let [move-amount (get-thing-at-grid-position
-                     grid (get-next-coordinate grid player-position direction))
+  (let [move-amount (get-in 
+                     grid 
+                     (reverse
+                      (get-next-coordinate grid player-position direction)))
         moves-made ((traverse-grid-in-direction grid player-position direction)
                     :moves-made)]
     (when (and (not= move-amount 0)
@@ -41,17 +43,17 @@
     (let [player-position (find-player grid)
           x (first player-position)
           y (nth player-position 1)
-          grid-with-replaced-player (set-thing-at-grid-position
-                                     grid player-position 0)
+          grid-with-replaced-player (assoc-in grid (reverse player-position) 0)
           new-position ((traverse-grid-in-direction
                          grid (find-player grid) direction)
                         :position)
-          grid-with-new-player-position (set-thing-at-grid-position
+          grid-with-new-player-position (assoc-in
                                          grid-with-replaced-player
-                                         new-position player-character)
+                                         (reverse new-position)
+                                         player-character)
           grid-with-zeroed-path (zero-path-between
                                  grid-with-new-player-position
                                  direction
                                  player-position
-                                 new-position)]
+                                new-position)]
       grid-with-zeroed-path)))

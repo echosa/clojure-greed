@@ -9,7 +9,6 @@
 
 (defn print-grid [grid]
   "Prints the grid to the screen."
-  (s/put-string scr 0 0 (print-str grid))
   (doseq [x (range (count (first grid))) y (range (count grid))]
     (s/put-string scr x (inc (inc y))
                   (let [thing (get-in grid [y x])]
@@ -43,5 +42,4 @@
     (s/redraw scr)
     (s/get-key-blocking scr)
 
-    (s/stop scr)
-    ))
+    (s/stop scr)))

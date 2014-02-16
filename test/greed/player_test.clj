@@ -22,22 +22,18 @@
 
 (deftest test-moving-player-makes-stating-position-a-zero
   (testing "Moving the player didn't make the starting space a zero."
-    (is (= 0 (get-thing-at-grid-position
-              (move-player test-grid :east)
-              '(2 1))))))
+    (is (= 0 (get-in (move-player test-grid :east) '(1 2))))))
 
 (deftest test-moving-player-makes-end-point-the-player-character
   (testing "Moving the player didn't make the end point the player character"
-    (is (= player-character (get-thing-at-grid-position
-                             (move-player test-grid :east)
-                             '(6 1))))))
+    (is (= player-character (get-in (move-player test-grid :east) '(1 6))))))
 
 (deftest test-moving-player-makes-all-traversed-points-zeroes
   (testing "Moving the player didn't make the traversed points zeroes."
     (let [grid-after-move (move-player test-grid :east)]
-      (is (= 0 (get-thing-at-grid-position grid-after-move '(3 1))))
-      (is (= 0 (get-thing-at-grid-position grid-after-move '(4 1))))
-      (is (= 0 (get-thing-at-grid-position grid-after-move '(5 1)))))))
+      (is (= 0 (get-in grid-after-move '(1 3))))
+      (is (= 0 (get-in grid-after-move '(1 4))))
+      (is (= 0 (get-in grid-after-move '(1 5)))))))
 
 (deftest test-making-bad-move-does-not-modify-grid
   (testing "Trying to make a bad move modified the grid."
