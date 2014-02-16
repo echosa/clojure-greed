@@ -6,19 +6,19 @@
 (deftest test-traverse-grid
   (testing "Could not traverse grid."
     (is (= {:position '(2 0) :moves-made 1}
-           (traverse-grid-in-direction test-grid '(2 1) :north)))
+           (traverse-grid test-grid '(2 1) :north)))
     (is (= {:position '(0 0) :moves-made 0}
-           (traverse-grid-in-direction test-grid '(0 0) :northwest)))
+           (traverse-grid test-grid '(0 0) :northwest)))
     (is (= {:position '(1 1) :moves-made 1}
-           (traverse-grid-in-direction test-grid '(0 0) :southeast)))
+           (traverse-grid test-grid '(0 0) :southeast)))
     (is (= {:position '(2 4) :moves-made 3}
-           (traverse-grid-in-direction test-grid '(2 7) :north)))
+           (traverse-grid test-grid '(2 7) :north)))
     (is (= {:position '(6 1) :moves-made 4}
-           (traverse-grid-in-direction test-grid '(2 1) :east)))
+           (traverse-grid test-grid '(2 1) :east)))
     (is (= {:position '(8 6) :moves-made 0}
-           (traverse-grid-in-direction test-grid '(8 6) :southeast)))
+           (traverse-grid test-grid '(8 6) :southeast)))
     (is (= {:position '(6 4) :moves-made 4}
-           (traverse-grid-in-direction test-grid '(2 0) :southeast)))))
+           (traverse-grid test-grid '(2 0) :southeast)))))
 
 (deftest test-zeroing-paths
   (testing "Could not zero path"

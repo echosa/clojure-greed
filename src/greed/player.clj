@@ -17,8 +17,7 @@
                      grid 
                      (reverse
                       (get-next-coordinate grid player-position direction)))
-        moves-made ((traverse-grid-in-direction grid player-position direction)
-                    :moves-made)]
+        moves-made ((traverse-grid grid player-position direction) :moves-made)]
     (when (and (not= move-amount 0)
                (= move-amount moves-made))
       direction)))
@@ -44,8 +43,7 @@
           x (first player-position)
           y (nth player-position 1)
           grid-with-replaced-player (assoc-in grid (reverse player-position) 0)
-          new-position ((traverse-grid-in-direction
-                         grid (find-player grid) direction)
+          new-position ((traverse-grid grid (find-player grid) direction)
                         :position)
           grid-with-new-player-position (assoc-in
                                          grid-with-replaced-player
