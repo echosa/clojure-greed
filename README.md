@@ -7,7 +7,7 @@ full amount. If you can't, you are not allowed to move in that direction. The ga
 ends when you can no longer make any moves.
 
 You move with the hjklyubn keys:
-
+```
 h: left
 j: down
 k: up
@@ -15,7 +15,8 @@ l: right
 y: up and left
 u: up and right
 b: down and left
-n: down adn right
+n: down and right
+```
 
 ## Installation
 
