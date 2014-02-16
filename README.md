@@ -18,7 +18,7 @@ b: down and left
 n: down and right
 ```
 
-You can quit at anytime by pressing `q`.
+You can quit at any time by pressing `q`.
 
 ## Installation
 
@@ -29,3 +29,7 @@ Download from http://github.com/echosa/clojure-greed
 Run the app with `lein run`. (Requires leiningen, obviously.)
 
 You can run the unit tests with `lein test`.
+
+## Thanks
+
+Thanks to #clojure on Freenode for all your help.
