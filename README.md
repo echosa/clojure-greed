@@ -6,6 +6,17 @@ of spaces equal to the first number in that direction. You must be able to move 
 full amount. If you can't, you are not allowed to move in that direction. The game
 ends when you can no longer make any moves.
 
+You move with the hjklyubn keys:
+
+h: left
+j: down
+k: up
+l: right
+y: up and left
+u: up and right
+b: down and left
+n: down adn right
+
 ## Installation
 
 Download from http://github.com/echosa/clojure-greed
@@ -14,3 +25,4 @@ Download from http://github.com/echosa/clojure-greed
 
 Run the app with `lein run`. (Requires leiningen, obviously.)
 
+You can run the unit tests with `lein test`.
