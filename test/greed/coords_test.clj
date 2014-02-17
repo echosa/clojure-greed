@@ -77,3 +77,5 @@
   (test-getting-next-south-coord)
   (test-getting-next-southwest-coord)
   (test-getting-next-west-coord))
+
+(run-tests)

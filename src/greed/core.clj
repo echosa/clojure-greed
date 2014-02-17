@@ -7,8 +7,9 @@
 
 (def scr (s/get-screen))
 
-(defn print-grid [grid]
+(defn print-grid
   "Prints the grid to the screen."
+  [grid]
   (doseq [x (range (count (first grid))) y (range (count grid))]
     (s/put-string scr x y
                   (let [thing (get-in grid [y x])]
@@ -20,12 +21,15 @@
  (s/redraw scr)
  grid)
 
-(defn print-message [message grid]
+(defn print-message
   "Prints a message below the grid."
+  [message grid]
   (s/put-string scr 0 (inc (count grid)) message)
   (s/redraw scr))
 
-(defn player-turn [grid]
+(defn player-turn
+  "This function is called recursively over and over, serving as the game loop."
+  [grid]
   (print-grid grid)
   (if (= '() (get-player-moves grid))
     (print-message "Game over! Press q to exit." grid)
@@ -42,8 +46,9 @@
         \h (player-turn (move-player grid :west))
         (player-turn grid)))))
 
-(defn generate-grid [height width]
+(defn generate-grid
   "Generates a random grid of size HEIGHT x WIDTH, and randomly places player."
+  [height width]
   (assoc-in 
    (into []
          (repeatedly height (fn [] 

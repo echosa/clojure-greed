@@ -1,8 +1,9 @@
 (ns greed.grid
   (:require [greed.coords :refer :all]))
 
-(defn rand-grid-item []
+(defn rand-grid-item
   "Returns a random nubmer between 1 and 9."
+  []
   (let [num (rand-int 10)]
     (if (= 0 num)
       (rand-grid-item)
@@ -24,8 +25,9 @@
          (traverse-grid grid next-move direction max-moves (+ moves-made 1))
          {:position position :moves-made moves-made}))))
 
-(defn zero-path-between [grid direction start end]
+(defn zero-path-between
   "Traverses the path between start and end and changes each position to 0."
+  [grid direction start end]
   (let [next (get-next-coordinate grid start direction)]
     (if (not= next end)
       (zero-path-between (assoc-in grid (reverse next) 0) direction next end)

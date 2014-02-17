@@ -6,13 +6,15 @@
   "The character that represents the player."
   "@")
 
-(defn find-player [grid]
+(defn find-player
   "Returns the (X Y) position of the player."
+  [grid]
   (let [row (first (filter #(> (.indexOf % player-character) -1) grid))]
     (list (.indexOf row player-character) (.indexOf grid row))))
 
-(defn check-player-move [grid player-position direction]
+(defn check-player-move
   "Returns the direction if the player can move that way, nil otherwise."
+  [grid player-position direction]
   (let [move-amount 
         (get-in grid (reverse
                       (get-next-coordinate grid player-position direction)))
@@ -21,8 +23,9 @@
                (= move-amount moves-made))
       direction)))
 
-(defn get-player-moves [grid]
+(defn get-player-moves
   "Returns keywords for the directions in which a player can move."
+  [grid]
   (let [player-position (find-player grid)]
     (remove nil?
             (list
@@ -35,7 +38,9 @@
              (check-player-move grid player-position :southeast)
              (check-player-move grid player-position :east)))))
 
-(defn move-player [grid direction]
+(defn move-player
+  "Move the player on the grid in the given direction."
+  [grid direction]
   (if (not (check-player-move grid (find-player grid) direction))
     grid
     (let [player-position (find-player grid)
