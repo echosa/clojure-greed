@@ -13,7 +13,11 @@
     (print-message "Game over! Press q to exit." grid scr)
     (let [key (s/get-key-blocking scr)]
       (condp = key
-        \q nil
+        \q (do
+             (print-message "Really quit? (y/n)" grid scr)
+             (when-not (= (s/get-key-blocking scr) \y)
+               (print-message "                  " grid scr)
+               (player-turn grid scr)))
         \y (player-turn (move-player grid :northwest) scr)
         \k (player-turn (move-player grid :north) scr)
         \u (player-turn (move-player grid :northeast) scr)
@@ -31,5 +35,6 @@
         grid (place-character-on-grid (generate-grid 22 79))]
     (s/start scr)
     (player-turn grid scr)
-    (while (not= \q (s/get-key-blocking scr)))
+    (print-message "Press any key to exit." grid scr)
+    (s/get-key-blocking scr)
     (s/stop scr)))
