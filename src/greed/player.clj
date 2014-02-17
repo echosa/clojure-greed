@@ -6,6 +6,13 @@
   "The character that represents the player."
   "@")
 
+(defn place-character-on-grid
+  "Places the player's character on a random spot on the grid."
+  [grid]
+  (let [height (count grid)
+        width (count (first grid))]
+    (assoc-in grid (list (rand-int height) (rand-int width)) player-character)))
+
 (defn find-player
   "Returns the (X Y) position of the player."
   [grid]

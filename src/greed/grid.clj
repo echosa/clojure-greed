@@ -9,6 +9,15 @@
       (rand-grid-item)
       num)))
 
+(defn generate-grid
+  "Generates a random grid of size HEIGHT x WIDTH, and randomly places player."
+  [height width]
+  (into []
+         (repeatedly height (fn [] 
+                              (into []
+                                    (repeatedly width (fn []
+                                                        (rand-grid-item))))))))
+
 (defn traverse-grid 
   "Traverses the gride in the given direction."
   ([grid position direction]
