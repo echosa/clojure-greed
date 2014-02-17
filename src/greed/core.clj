@@ -9,8 +9,7 @@
   "This function is called recursively over and over, serving as the game loop."
   [grid scr]
   (print-screen grid scr)
-  (if (= '() (get-player-moves grid))
-    (print-message "Game over! Press q to exit." grid scr)
+  (when-not (= '() (get-player-moves grid))
     (let [key (s/get-key-blocking scr)]
       (condp = key
         \q (do
@@ -35,6 +34,6 @@
         grid (place-character-on-grid (generate-grid 22 79))]
     (s/start scr)
     (player-turn grid scr)
-    (print-message "Press any key to exit." grid scr)
-    (s/get-key-blocking scr)
+    (print-message "Game over. Press q to exit." grid scr)
+    (while (not= \q (s/get-key-blocking scr)))
     (s/stop scr)))
