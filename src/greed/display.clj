@@ -20,14 +20,7 @@
   [grid scr]
   (doseq [x (range (count (first grid))) y (range (count grid))]
     (s/put-string scr x y (get-grid-item-string grid x y)))
-  (place-cursor (find-player grid) scr)
-  (s/redraw scr))
-
-(defn print-message
-  "Prints a message below the grid."
-  [message grid scr]
-  (s/put-string scr 0 (inc (count grid)) message)
-  (s/redraw scr))
+  (place-cursor (find-player grid) scr))
 
 (defn print-keys
   "Prints the keybindings for the game on the screen."
@@ -37,10 +30,23 @@
   (s/put-string scr 1 (+ (count grid) 4) " \\|/")
   (s/put-string scr 1 (+ (count grid) 5) "H- -L")
   (s/put-string scr 1 (+ (count grid) 6) " /|\\")
-  (s/put-string scr 1 (+ (count grid) 7) "B J N")
+  (s/put-string scr 1 (+ (count grid) 7) "B J N"))
+
+(defn print-score
+  "Prints the score to the screen."
+  [grid scr]
+  (s/put-string scr 15 (inc (count grid)) "Score:"))
+
+(defn print-screen
+  "Prints the game screen."
+  [grid scr]
+  (print-grid grid scr)
+  (print-keys grid scr)
+  (print-score grid scr)
   (s/redraw scr))
-;; Y K U
-;;  \|/
-;; H- -L
-;;  /|\
-;; B J N
+
+(defn print-message
+  "Prints a message below the grid."
+  [message grid scr]
+  (s/put-string scr 15 (+ (count grid) 3) message)
+  (s/redraw scr))

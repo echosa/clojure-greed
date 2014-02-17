@@ -8,7 +8,7 @@
 (defn player-turn
   "This function is called recursively over and over, serving as the game loop."
   [grid scr]
-  (print-grid grid scr)
+  (print-screen grid scr)
   (if (= '() (get-player-moves grid))
     (print-message "Game over! Press q to exit." grid scr)
     (let [key (s/get-key-blocking scr)]
