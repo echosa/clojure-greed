@@ -29,3 +29,18 @@
   (s/put-string scr 0 (inc (count grid)) message)
   (s/redraw scr))
 
+(defn print-keys
+  "Prints the keybindings for the game on the screen."
+  [grid scr]
+  (s/put-string scr 1 (inc (count grid)) "Controls:")
+  (s/put-string scr 1 (+ (count grid) 3) "Y K U")
+  (s/put-string scr 1 (+ (count grid) 4) " \\|/")
+  (s/put-string scr 1 (+ (count grid) 5) "H- -L")
+  (s/put-string scr 1 (+ (count grid) 6) " /|\\")
+  (s/put-string scr 1 (+ (count grid) 7) "B J N")
+  (s/redraw scr))
+;; Y K U
+;;  \|/
+;; H- -L
+;;  /|\
+;; B J N
