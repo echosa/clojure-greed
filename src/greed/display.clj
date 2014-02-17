@@ -2,24 +2,35 @@
   (:require [greed.player :refer :all]
             [lanterna.screen :as s]))
 
-(defn get-grid-item-string
-  "Given an item in the grid vector, returns the appropriate string to display."
-  [grid x y]
-  (let [thing (get-in grid [y x])]
-    (if (= thing 0)
-      " "
-      (print-str thing))))
-
 (defn place-cursor
   "Place the cursor on the given coordinates of the grid."
   [position scr]
   (s/move-cursor scr (first position) (second position)))
 
+(defn get-grid-item
+  "Given an item in the grid vector, returns the string and color to display."
+  [grid x y]
+  (let [thing (get-in grid [y x])]
+    (condp = thing
+      0 {:string " " :color {:fg :white}}
+      1 {:string "1" :color {:fg :yellow}}
+      2 {:string "2" :color {:fg :red}}
+      3 {:string "3" :color {:fg :green}}
+      4 {:string "4" :color {:fg :cyan}}
+      5 {:string "5" :color {:fg :magenta}}
+      6 {:string "6" :color {:fg :yellow}}
+      7 {:string "7" :color {:fg :red}}
+      8 {:string "8" :color {:fg :green}}
+      9 {:string "9" :color {:fg :cyan}}
+      "@" {:string "@" :color {:fg :white}}
+      nil)))
+
 (defn print-grid
   "Prints the grid to the screen."
   [grid scr]
   (doseq [x (range (count (first grid))) y (range (count grid))]
-    (s/put-string scr x y (get-grid-item-string grid x y)))
+    (let [{:keys [string color]} (get-grid-item grid x y)]
+      (s/put-string scr x y string color)))
   (place-cursor (find-player grid) scr))
 
 (defn print-keys
@@ -51,13 +62,13 @@
   (s/put-string scr 15 (+ (count grid) 3) message)
   (s/redraw scr))
 
-;; 1 - orange
+;; 1 - yellow
 ;; 2 - red
-;; 3 - green/yellow
+;; 3 - green
 ;; 4 - cyan
-;; 5 - pink
-;; 6 - light grey
-;; 7 - bold orange?
-;; 8 - dark grey
-;; 9 - really light grey
+;; 5 - magenta
+;; 6 - yellow bold
+;; 7 - red bold
+;; 8 - green bold
+;; 9 - cyan bold
 ;; @ - white
