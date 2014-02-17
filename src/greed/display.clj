@@ -61,14 +61,3 @@
   [message grid scr]
   (s/put-string scr 15 (+ (count grid) 3) message)
   (s/redraw scr))
-
-;; 1 - yellow
-;; 2 - red
-;; 3 - green
-;; 4 - cyan
-;; 5 - magenta
-;; 6 - yellow bold
-;; 7 - red bold
-;; 8 - green bold
-;; 9 - cyan bold
-;; @ - white

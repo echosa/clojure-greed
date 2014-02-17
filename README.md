@@ -35,7 +35,7 @@ You can run the unit tests with `lein test`.
 Things I still want to add to the game:
 
 - score keeping/display
-- colors
+- show moves
 
 ## Thanks
 
