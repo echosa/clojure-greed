@@ -48,7 +48,7 @@
 (defn move-player
   "Move the player on the grid in the given direction."
   [grid direction]
-  (if (not (check-player-move grid (find-player grid) direction))
+  (if-not (check-player-move grid (find-player grid) direction)
     grid
     (let [player-position (find-player grid)
           x (first player-position)

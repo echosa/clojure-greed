@@ -1,5 +1,6 @@
 (ns greed.display
   (:require [greed.player :refer :all]
+            [greed.grid :refer :all]
             [lanterna.screen :as s]))
 
 (defn place-cursor
@@ -46,7 +47,9 @@
 (defn print-score
   "Prints the score to the screen."
   [grid scr]
-  (s/put-string scr 15 (inc (count grid)) "Score:"))
+  (s/put-string scr 15 (inc (count grid)) (str "Score: "
+                                               (calculate-score grid)
+                                               "%      ")))
 
 (defn print-screen
   "Prints the game screen."

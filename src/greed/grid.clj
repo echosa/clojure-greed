@@ -41,3 +41,26 @@
     (if (not= next end)
       (zero-path-between (assoc-in grid (reverse next) 0) direction next end)
       grid)))
+
+(defn get-number-of-cleared-spaces
+  "Returns the number of cleared spaces in the grid."
+  [grid]
+  (inc (reduce (fn [a b]
+                 (let [result (inc (reduce (fn [x y] (if (or (= y 0) (= y "@"))
+                                                       (inc x)
+                                                       x))
+                                           -1 b))]
+                   (+ a result))) -1 grid)))
+
+(defn calculate-score
+  "Calculates the user's score as percentage of the grid cleared."
+  [grid]
+  (let [height (count grid)
+        width (count (first grid))
+        area (* height width)
+        num-cleared (get-number-of-cleared-spaces grid)
+        score (with-precision 2 (* 100M (/ num-cleared area)))]
+    (double
+     (if (< score 10)
+       score
+       (with-precision 4 (* 100M (/ num-cleared area)))))))

@@ -29,3 +29,10 @@
       (is (= 0 (get-in zeroed-grid '(0 5))))
       (is (= 7 (get-in zeroed-grid '(0 6)))))))
 
+(deftest test-number-of-cleared-spaces
+  (testing "Wrong number of cleared spaces found."
+    (is (= 3 (get-number-of-cleared-spaces test-grid)))))
+
+(deftest test-score-calculation
+  (testing "Incorrect score."
+    (is (= 4.17 (calculate-score test-grid)))))
