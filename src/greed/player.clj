@@ -66,3 +66,23 @@
                                  player-position
                                 new-position)]
       grid-with-zeroed-path)))
+
+(defn grid-position-is-part-of-valid-move
+  "Returns true of the given position is part of a valid move, false otherwise."
+  ([grid target direction]
+     (let [player-position (find-player grid)]
+       (and 
+        (check-player-move grid player-position direction)
+        (< -1 (.indexOf (:positions-traversed
+                         (traverse-grid grid player-position direction))
+                        target)))))
+
+  ([grid target]
+     (or (grid-position-is-part-of-valid-move grid target :northwest)
+         (grid-position-is-part-of-valid-move grid target :north)
+         (grid-position-is-part-of-valid-move grid target :northeast)
+         (grid-position-is-part-of-valid-move grid target :east)
+         (grid-position-is-part-of-valid-move grid target :southeast)
+         (grid-position-is-part-of-valid-move grid target :south)
+         (grid-position-is-part-of-valid-move grid target :southwest)
+         (grid-position-is-part-of-valid-move grid target :west))))

@@ -24,15 +24,17 @@
      (let [thing-at-first-move
            (get-in grid (reverse (get-next-coordinate grid position direction)))
            max-moves (if thing-at-first-move thing-at-first-move 0)]
-       (traverse-grid grid position direction max-moves 0)))
+       (traverse-grid grid position direction max-moves 0 [])))
 
-  ([grid position direction max-moves moves-made]
+  ([grid position direction max-moves moves-made positions-traversed]
      (let [next-move (get-next-coordinate grid position direction)]
        (if (and next-move
                 (not= (get-in grid (reverse next-move)) 0)
                 (< moves-made max-moves))
-         (traverse-grid grid next-move direction max-moves (+ moves-made 1))
-         {:position position :moves-made moves-made}))))
+         (traverse-grid grid next-move direction max-moves (+ moves-made 1)
+                        (conj positions-traversed next-move))
+         {:position position :moves-made moves-made
+          :positions-traversed positions-traversed}))))
 
 (defn zero-path-between
   "Traverses the path between start and end and changes each position to 0."
@@ -60,4 +62,5 @@
         area (* height width)
         num-cleared (get-number-of-cleared-spaces grid)]
     (double (* 100 (/ num-cleared area)))))
+
 

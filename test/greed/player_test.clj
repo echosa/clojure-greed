@@ -39,3 +39,18 @@
   (testing "Trying to make a bad move modified the grid."
     (is (= test-grid (move-player test-grid :south)))))
 
+(deftest test-grid-position-is-part-of-valid-move
+  (testing "Grid position valid move testing."
+    (is (= false (grid-position-is-part-of-valid-move test-grid '(1 0))))
+    (is (= false (grid-position-is-part-of-valid-move test-grid '(2 0))))
+    (is (= false (grid-position-is-part-of-valid-move test-grid '(3 0))))
+    (is (= true (grid-position-is-part-of-valid-move test-grid '(3 1))))
+    (is (= true (grid-position-is-part-of-valid-move test-grid '(4 1))))
+    (is (= true (grid-position-is-part-of-valid-move test-grid '(5 1))))
+    (is (= true (grid-position-is-part-of-valid-move test-grid '(6 1))))
+    (is (= false (grid-position-is-part-of-valid-move test-grid '(7 1))))
+    (is (= false (grid-position-is-part-of-valid-move test-grid '(3 2))))
+    (is (= false (grid-position-is-part-of-valid-move test-grid '(2 2))))
+    (is (= true (grid-position-is-part-of-valid-move test-grid '(1 2))))
+    (is (= true (grid-position-is-part-of-valid-move test-grid '(0 3))))
+    (is (= true (grid-position-is-part-of-valid-move test-grid '(1 1))))))

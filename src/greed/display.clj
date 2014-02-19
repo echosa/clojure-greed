@@ -10,39 +10,46 @@
 
 (defn get-grid-item
   "Given an item in the grid vector, returns the string and color to display."
-  [grid x y]
-  (let [thing (get-in grid [y x])]
+  [grid x y show-moves]
+  (let [thing (get-in grid [y x])
+        highlight (if (and
+                       show-moves
+                       (grid-position-is-part-of-valid-move grid `(~x ~y)))
+                    :white
+                    :default)]
     (condp = thing
-      0 {:string " " :color {:fg :white}}
-      1 {:string "1" :color {:fg :yellow}}
-      2 {:string "2" :color {:fg :red}}
-      3 {:string "3" :color {:fg :green}}
-      4 {:string "4" :color {:fg :cyan}}
-      5 {:string "5" :color {:fg :magenta}}
-      6 {:string "6" :color {:fg :yellow}}
-      7 {:string "7" :color {:fg :red}}
-      8 {:string "8" :color {:fg :green}}
-      9 {:string "9" :color {:fg :cyan}}
+      0 {:string " " :color {:fg :white :bg highlight}}
+      1 {:string "1" :color {:fg :yellow :bg highlight}}
+      2 {:string "2" :color {:fg :red :bg highlight}}
+      3 {:string "3" :color {:fg :green :bg highlight}}
+      4 {:string "4" :color {:fg :cyan :bg highlight}}
+      5 {:string "5" :color {:fg :magenta :bg highlight}}
+      6 {:string "6" :color {:fg :yellow :bg highlight}}
+      7 {:string "7" :color {:fg :red :bg highlight}}
+      8 {:string "8" :color {:fg :green :bg highlight}}
+      9 {:string "9" :color {:fg :cyan :bg highlight}}
       "@" {:string "@" :color {:fg :white}}
       nil)))
 
 (defn print-grid
   "Prints the grid to the screen."
-  [grid scr]
+  [grid show-moves scr]
   (doseq [x (range (count (first grid))) y (range (count grid))]
-    (let [{:keys [string color]} (get-grid-item grid x y)]
+    (let [{:keys [string color]} (get-grid-item grid x y show-moves)]
       (s/put-string scr x y string color)))
   (place-cursor (find-player grid) scr))
 
 (defn print-keys
   "Prints the keybindings for the game on the screen."
   [grid scr]
-  (s/put-string scr 1 (inc (count grid)) "Controls:")
-  (s/put-string scr 1 (+ (count grid) 3) "Y K U")
-  (s/put-string scr 1 (+ (count grid) 4) " \\|/")
-  (s/put-string scr 1 (+ (count grid) 5) "H- -L")
-  (s/put-string scr 1 (+ (count grid) 6) " /|\\")
-  (s/put-string scr 1 (+ (count grid) 7) "B J N"))
+  (s/put-string scr 1 (count grid) "Controls:")
+  (s/put-string scr 1 (inc (count grid)) "Y K U")
+  (s/put-string scr 1 (+ (count grid) 2) " \\|/")
+  (s/put-string scr 1 (+ (count grid) 3) "H- -L")
+  (s/put-string scr 1 (+ (count grid) 4) " /|\\")
+  (s/put-string scr 1 (+ (count grid) 5) "B J N")
+  (s/put-string scr 1 (+ (count grid) 6) "P - Show moves (can cause extreme lag!)")
+  (s/put-string scr 1 (+ (count grid) 7) "Q - Quit"))
 
 (defn print-score
   "Prints the score to the screen."
@@ -52,8 +59,8 @@
 
 (defn print-screen
   "Prints the game screen."
-  [grid scr]
-  (print-grid grid scr)
+  [grid show-moves scr]
+  (print-grid grid show-moves scr)
   (print-keys grid scr)
   (print-score grid scr)
   (s/redraw scr))
