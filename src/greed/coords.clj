@@ -1,38 +1,38 @@
 (ns greed.coords)
 
-(defn get-next-coordinate-northwest [grid x y]
+(defn- get-next-coordinate-northwest [grid x y]
   (when-not (or (<= x 0)
                 (<= y 0))
     (list (- x 1) (- y 1))))
 
-(defn get-next-coordinate-north [grid x y]
+(defn- get-next-coordinate-north [grid x y]
   (when-not (<= y 0)
     (list x (- y 1))))
 
-(defn get-next-coordinate-northeast [grid x y]
+(defn- get-next-coordinate-northeast [grid x y]
   (when-not (or (>= x (- (count (first grid)) 1))
                 (<= y 0))
     (list (+ x 1) (- y 1))))
 
-(defn get-next-coordinate-east [grid x y]
+(defn- get-next-coordinate-east [grid x y]
   (when-not (>= x (- (count (first grid)) 1))
     (list (+ x 1) y)))
 
-(defn get-next-coordinate-southeast [grid x y]
+(defn- get-next-coordinate-southeast [grid x y]
   (when-not (or (>= x (- (count (first grid)) 1))
                 (>= y (- (count grid) 1)))
     (list (+ x 1) (+ y 1))))
 
-(defn get-next-coordinate-south [grid x y]
+(defn- get-next-coordinate-south [grid x y]
   (when-not (>= y (- (count grid) 1))
     (list x (+ y 1))))
 
-(defn get-next-coordinate-southwest [grid x y]
+(defn- get-next-coordinate-southwest [grid x y]
   (when-not (or (<= x 0)
                 (>= y (- (count grid) 1)))
     (list (- x 1) (+ y 1))))
 
-(defn get-next-coordinate-west [grid x y]
+(defn- get-next-coordinate-west [grid x y]
   (when-not (<= x 0)
     (list (- x 1) y)))
 
