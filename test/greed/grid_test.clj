@@ -1,7 +1,6 @@
-(ns greed.grid-test
+(ns greed.grid
   (:require [clojure.test :refer :all]
-            [greed.test-helper :refer :all]
-            [greed.grid :refer :all]))
+            [greed.test-helper :refer :all]))
 
 (deftest test-traverse-grid
   (testing "Could not traverse grid."
