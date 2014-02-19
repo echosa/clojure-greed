@@ -18,6 +18,8 @@ b: down and left
 n: down and right
 ```
 
+You can toggle showing your available moves by pressing `p`. ***WARNING*** This is known to cause significant lag right now.
+
 You can quit at any time by pressing `q`.
 
 ## Installation
