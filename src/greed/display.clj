@@ -47,9 +47,8 @@
 (defn print-score
   "Prints the score to the screen."
   [grid scr]
-  (s/put-string scr 15 (inc (count grid)) (str "Score: "
-                                               (calculate-score grid)
-                                               "%      ")))
+  (s/put-string scr 15 (inc (count grid))
+                (str "Score: " (format "%.2f" (calculate-score grid)) "%  ")))
 
 (defn print-screen
   "Prints the game screen."

@@ -26,15 +26,12 @@ Download from http://github.com/echosa/clojure-greed
 
 ## Usage
 
-Run the app with `lein run`. (Requires leiningen, obviously.)
+Run the app with `lein run`. (Requires [Leiningen](http://leiningen.org), obviously.)
 
 You can run the unit tests with `lein test`.
 
 ## TODO
 
-Things I still want to add to the game:
-
-- score keeping/display
 - show moves
 
 ## Thanks

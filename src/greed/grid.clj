@@ -58,9 +58,6 @@
   (let [height (count grid)
         width (count (first grid))
         area (* height width)
-        num-cleared (get-number-of-cleared-spaces grid)
-        score (with-precision 2 (* 100M (/ num-cleared area)))]
-    (double
-     (if (< score 10)
-       score
-       (with-precision 4 (* 100M (/ num-cleared area)))))))
+        num-cleared (get-number-of-cleared-spaces grid)]
+    (double (* 100 (/ num-cleared area)))))
+
