@@ -30,10 +30,6 @@ Run the app with `lein run`. (Requires [Leiningen](http://leiningen.org), obviou
 
 You can run the unit tests with `lein test`.
 
-## TODO
-
-- show moves
-
 ## Thanks
 
 Thanks to #clojure on Freenode for all your help.
