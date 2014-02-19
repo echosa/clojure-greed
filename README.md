@@ -24,13 +24,13 @@ You can quit at any time by pressing `q`.
 
 ## Installation
 
-Download from http://github.com/echosa/clojure-greed
+Download or clone this repository.
 
 ## Usage
 
-Run the app with `lein run`. (Requires [Leiningen](http://leiningen.org), obviously.)
+You'll need [Leiningen](http://leiningen.org) to run this game. Once you have Leinengen, open a terminal, navigate to this project's directory, then run the app with `lein run`.
 
-You can run the unit tests with `lein test`.
+You can run the unit tests with `lein test`, and you can get code coverage information with `lein cloverage`
 
 ## Thanks
 
