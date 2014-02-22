@@ -35,10 +35,8 @@
 
 (defn print-string-at-location
   "Prints the given string at the given x and y positions."
-  [string x y]
-  (s/put-string scr x y string))
+  ([string color x y]
+     (s/put-string scr x y string color))
 
-(defn print-string-with-color-at-location
-  "Prints the given string with color at the given x and y positions."
-  [string color x y]
-  (s/put-string scr x y string color))
+  ([string x y]
+     (print-string-at-location string {:fg :default} x y)))

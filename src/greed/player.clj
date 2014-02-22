@@ -86,3 +86,4 @@
          (grid-position-is-part-of-valid-move grid target :south)
          (grid-position-is-part-of-valid-move grid target :southwest)
          (grid-position-is-part-of-valid-move grid target :west))))
+

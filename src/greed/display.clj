@@ -41,7 +41,7 @@
   [grid show-moves]
   (doseq [x (range (count (first grid))) y (range (count grid))]
     (let [{:keys [string color]} (get-grid-item grid x y show-moves)]
-      (adapter/print-string-with-color-at-location string color x y)))
+      (adapter/print-string-at-location string color x y)))
   (adapter/place-cursor (find-player grid)))
 
 (defn print-keys
@@ -63,7 +63,6 @@
   (adapter/print-string-at-location
    (str "Score: " (format "%.2f" (calculate-score grid)) "%  ")
    15 (inc (count grid))))
-
 
 (defn print-screen
   "Prints the game screen."
