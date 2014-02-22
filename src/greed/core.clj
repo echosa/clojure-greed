@@ -1,40 +1,39 @@
 (ns greed.core
   (:require [greed.display :refer :all]
+            [greed.input :refer :all]
             [greed.grid :refer :all]
-            [greed.player :refer :all]
-            [lanterna.screen :as s])
+            [greed.player :refer :all])
   (:gen-class))
 
 (defn player-turn
   "This function is called recursively over and over, serving as the game loop."
-  [grid show-moves scr]
-  (print-screen grid show-moves scr)
+  [grid show-moves]
+  (print-screen grid show-moves)
   (when-not (= '() (get-player-moves grid))
-    (let [key (s/get-key-blocking scr)]
+    (let [key (wait-for-key)]
       (condp = key
         \q (do
-             (print-message "Really quit? (y/n)" grid scr)
-             (when-not (= (s/get-key-blocking scr) \y)
-               (print-message "                  " grid scr)
-               (player-turn grid show-moves scr)))
-        \y (player-turn (move-player grid :northwest) show-moves scr)
-        \k (player-turn (move-player grid :north) show-moves scr)
-        \u (player-turn (move-player grid :northeast) show-moves scr)
-        \l (player-turn (move-player grid :east) show-moves scr)
-        \n (player-turn (move-player grid :southeast) show-moves scr)
-        \j (player-turn (move-player grid :south) show-moves scr)
-        \b (player-turn (move-player grid :southwest) show-moves scr)
-        \h (player-turn (move-player grid :west) show-moves scr)
-        \p (player-turn grid (not show-moves) scr)
-        (player-turn grid show-moves scr)))))
+             (print-message "Really quit? (y/n)" grid)
+             (when-not (= (wait-for-key) \y)
+               (print-message "                  " grid)
+               (player-turn grid show-moves)))
+        \y (player-turn (move-player grid :northwest) show-moves)
+        \k (player-turn (move-player grid :north) show-moves)
+        \u (player-turn (move-player grid :northeast) show-moves)
+        \l (player-turn (move-player grid :east) show-moves)
+        \n (player-turn (move-player grid :southeast) show-moves)
+        \j (player-turn (move-player grid :south) show-moves)
+        \b (player-turn (move-player grid :southwest) show-moves)
+        \h (player-turn (move-player grid :west) show-moves)
+        \p (player-turn grid (not show-moves))
+        (player-turn grid show-moves)))))
 
 (defn -main
   "Run the game."
   [& args]
-  (let [scr (s/get-screen)
-        grid (place-character-on-grid (generate-grid 22 79))]
-    (s/start scr)
-    (player-turn grid false scr)
-    (print-message "Game over. Press q to exit." grid scr)
-    (while (not= \q (s/get-key-blocking scr)))
-    (s/stop scr)))
+  (let [grid (place-character-on-grid (generate-grid 22 79))]
+    (start-display)
+    (player-turn grid false)
+    (print-message "Game over. Press q to exit." grid)
+    (while (not= \q (wait-for-key)))
+    (stop-display)))

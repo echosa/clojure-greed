@@ -1,12 +1,17 @@
 (ns greed.display
   (:require [greed.player :refer :all]
             [greed.grid :refer :all]
-            [lanterna.screen :as s]))
+            [greed.display.adapter.lanterna :as adapter]))
 
-(defn place-cursor
-  "Place the cursor on the given coordinates of the grid."
-  [position scr]
-  (s/move-cursor scr (first position) (second position)))
+(defn start-display
+  "Start the display."
+  []
+  (adapter/start))
+
+(defn stop-display
+  "Stop the display."
+  []
+  (adapter/stop))
 
 (defn get-grid-item
   "Given an item in the grid vector, returns the string and color to display."
@@ -33,40 +38,44 @@
 
 (defn print-grid
   "Prints the grid to the screen."
-  [grid show-moves scr]
+  [grid show-moves]
   (doseq [x (range (count (first grid))) y (range (count grid))]
     (let [{:keys [string color]} (get-grid-item grid x y show-moves)]
-      (s/put-string scr x y string color)))
-  (place-cursor (find-player grid) scr))
+      (adapter/print-string-with-color-at-location string color x y)))
+  (adapter/place-cursor (find-player grid)))
 
 (defn print-keys
   "Prints the keybindings for the game on the screen."
-  [grid scr]
-  (s/put-string scr 1 (count grid) "Controls:")
-  (s/put-string scr 1 (inc (count grid)) "Y K U")
-  (s/put-string scr 1 (+ (count grid) 2) " \\|/")
-  (s/put-string scr 1 (+ (count grid) 3) "H- -L")
-  (s/put-string scr 1 (+ (count grid) 4) " /|\\")
-  (s/put-string scr 1 (+ (count grid) 5) "B J N")
-  (s/put-string scr 1 (+ (count grid) 6) "P - Show moves (can cause extreme lag!)")
-  (s/put-string scr 1 (+ (count grid) 7) "Q - Quit"))
+  [grid]
+  (adapter/print-string-at-location "Controls:" 1 (count grid))
+  (adapter/print-string-at-location "Y K U" 1 (inc (count grid)))
+  (adapter/print-string-at-location " \\|/" 1 (+ (count grid) 2))
+  (adapter/print-string-at-location "H- -L" 1 (+ (count grid) 3))
+  (adapter/print-string-at-location " /|\\" 1 (+ (count grid) 4))
+  (adapter/print-string-at-location "B J N" 1 (+ (count grid) 5))
+  (adapter/print-string-at-location "P - Show moves (can cause extreme lag!)"
+                            1 (+ (count grid) 6))
+  (adapter/print-string-at-location "Q - Quit" 1 (+ (count grid) 7)))
 
 (defn print-score
   "Prints the score to the screen."
-  [grid scr]
-  (s/put-string scr 15 (inc (count grid))
-                (str "Score: " (format "%.2f" (calculate-score grid)) "%  ")))
+  [grid]
+  (adapter/print-string-at-location
+   (str "Score: " (format "%.2f" (calculate-score grid)) "%  ")
+   15 (inc (count grid))))
+
 
 (defn print-screen
   "Prints the game screen."
-  [grid show-moves scr]
-  (print-grid grid show-moves scr)
-  (print-keys grid scr)
-  (print-score grid scr)
-  (s/redraw scr))
+  [grid show-moves]
+  (adapter/clear-screen)
+  (print-grid grid show-moves)
+  (print-keys grid)
+  (print-score grid)
+  (adapter/draw-screen))
 
 (defn print-message
   "Prints a message below the grid."
-  [message grid scr]
-  (s/put-string scr 15 (+ (count grid) 3) message)
-  (s/redraw scr))
+  [message grid]
+  (adapter/print-string-at-location message 15 (+ (count grid) 3))
+  (adapter/draw-screen))
