@@ -1,7 +1,7 @@
 (ns greed.grid
   (:require [greed.coords :refer :all]))
 
-(defn- rand-grid-item
+(defn rand-grid-item
   "Returns a random nubmer between 1 and 9."
   []
   (let [num (rand-int 10)]
@@ -44,7 +44,7 @@
       (zero-path-between (assoc-in grid (reverse next) 0) direction next end)
       grid)))
 
-(defn- get-number-of-cleared-spaces
+(defn get-number-of-cleared-spaces
   "Returns the number of cleared spaces in the grid."
   [grid]
   (inc (reduce (fn [a b]

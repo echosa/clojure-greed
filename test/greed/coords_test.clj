@@ -1,5 +1,6 @@
-(ns greed.coords
+(ns greed.coords-test
   (:require [clojure.test :refer :all]
+            [greed.coords :refer :all]
             [greed.test-helper :refer :all]))
 
 (deftest test-getting-next-northwest-coord
