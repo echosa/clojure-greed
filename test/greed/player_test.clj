@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [greed.test-helper :refer :all]
             [greed.player :refer :all]
-            [greed.grid :refer :all]))
+            [greed.grid :as g]))
 
 (deftest test-finding-player-in-grid
   (testing "Could not find player in the game grid."
