@@ -8,7 +8,7 @@
                  [org.clojure/core.typed "0.2.34"]]
   :plugins [[lein-cloverage "1.0.2"]
             [lein-typed "0.3.1"]]
-  :core.typed {:check [greed.coords]}
+  :core.typed {:check [greed.grid]}
   :main ^:skip-aot greed.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
